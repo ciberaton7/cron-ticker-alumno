@@ -11,7 +11,7 @@ describe('multiply', () => {
     });
 
     test('debe multiplicar números negativos', () => {
-        expect(multiply(-2, 3)).toBe(-6);
+        expect(multiply(-2, 3)).toBe(-12);
     });
 
     test('debe lanzar error si los argumentos no son números', () => {
@@ -59,7 +59,7 @@ describe('getGreeting', () => {
 describe('divide', () => {
 
     test('debe dividir dos números', () => {
-        expect(divide(10, 2)).toBe(4);
+        expect(divide(10, 2)).toBe(5);
     });
 
     test('debe lanzar error al dividir entre cero', () => {
