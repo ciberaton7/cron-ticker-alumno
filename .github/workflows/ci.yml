@@ -9,25 +9,32 @@ on:                     #eventos que dispara el workflow en push y pull request
 
   workflow_dispatch:  #permite ejecución manual desde la UI de GitHub Actions 
 
-  
+
+#Variables a nivel del workflow, es decir que se pueden usar en todos los jobs y steps del workflow
+env:
+  NODE_VEERSION: "20"
+  APP_NAME: "cron-ticker"
   
 jobs:                 #Acá van todos los jobs, es decir es la definición de los jobs que se ejecutarán en el workflow
 
-    run-test:           #nombre del jbo
-      name: Run Test    #nombre legible que aparecerá en la UI de GitHub Actions
-      runs-on: ubuntu-latest  #define el sistema operativo donde se ejecutará el job, el ubuntu latest es la última versión de ubuntu disponible en GitHub Actions
-        
-      steps:            #Son los pasos en orden secuencial
-        - name: Checkout Code  #nombre legible del paso
-          uses: actions/checkout@v4  #acción que permite hacer checkout del código fuente del repositorio
+  build:
+    runs-on: ubuntu-latest  #define el sistema operativo donde se ejecutará el job, el ubuntu latest es la última versión de ubuntu disponible en GitHub Actions
+    
+    #variables a nivel del job, es decir que se pueden usar en todos los steps del job
+    env:
+      BUILD_DIR: dist          #nombre del job
 
-        - name: Setup Node.js  #nombre legible del paso
-          uses: actions/setup-node@v4  #acción que permite configurar Node.js en el runner
-          with:
-            node-version: '20'  #versión de Node.js específica a utilizar
+    steps:
+      - uses: actions/checkout@v4  #step que hace checkout del repositorio, es decir clona el repositorio en el runner de GitHub Actions
 
-        - name: Install Dependencies #nombre legible del paso para instalar dependencias del pack age.json
-          run: npm ci  #comando para instalar dependencias de Node.js
+      - name: Show Variables
+        run: |
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VEERSION }}"
 
-        - name: Run Tests #nombre legible del paso para ejecutar los tests
-          run: npm test  #comando para ejecutar los tests definidos en el package.json, es decir para que corran los tests de cron-ticker
+        #Variables al nivel del step, es decir que se pueden usar en ese step
+      - name: Build
+        run: npm run build
+        env:
+          APP_VERSION: '2.0.0'
+
+      
