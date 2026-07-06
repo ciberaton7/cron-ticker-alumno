@@ -11,7 +11,7 @@ describe('multiply', () => {
     });
 
     test('debe multiplicar números negativos', () => {
-        expect(multiply(-2, 3)).toBe(-12);
+        expect(multiply(-2, 3)).toBe(-6);
     });
 
     test('debe lanzar error si los argumentos no son números', () => {
