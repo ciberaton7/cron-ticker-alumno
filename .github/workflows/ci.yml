@@ -49,4 +49,4 @@ jobs:
 
       - name: Deploy
         run: |
-          echo "Deploying build artifact: $(cat dist/build--info.json)"  
+          echo "Deploying build artifact: $(cat dist/build-info.json)"  
