@@ -13,26 +13,25 @@ env:
 
 jobs:
 
-  test:
-    name: Tests
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-    - run: npm ci
-    - name: Run tests with coverage
-      run: npm run test:coverage
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
-    - name: Upload coverage report
+      - run: npm ci
+      - name: Build app
+        run: npm run build
+        env:
+          APP_VERSION: ${{ vars.APP_VERSION || '1.0.0' }}
 
-      uses: actions/upload-artifact@v4
-
-      if: always()
-      
-      with:
-        name: coverage--{github.sha}
-        path: coverage/
-        retention-days: 7
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{github.sha}}
+          path: dist/
+          retention-days: 7
