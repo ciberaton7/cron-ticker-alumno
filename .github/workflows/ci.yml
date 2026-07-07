@@ -44,7 +44,11 @@ jobs:                 #Acá van todos los jobs, es decir es la definición de lo
       - name: Deploy API
         run: |
           echo "Deploying API with key ${{ secrets.API_KEY }}..."
-          
+
+      - name: My First Secret
+        run: |
+          echo "My secret value (it sounds weird :'v  ) is ${{ secrets.MY_SECRET }}"
+
         #Variables al nivel del step, es decir que se pueden usar en ese step
       - name: Build
         run: npm run build
