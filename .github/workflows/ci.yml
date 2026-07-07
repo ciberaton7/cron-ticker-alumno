@@ -31,10 +31,36 @@ jobs:                 #Acá van todos los jobs, es decir es la definición de lo
         run: |
           echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VEERSION }}"
 
+      - name: Show Github Variables
+        run: |
+          echo "App Version: ${{ vars.APP_VERSION}}"
+
+      # Agregar la variable Node Version 20
+      - name: Show Node Version
+        run: |
+          echo "Node Version: ${{ vars.APP_NODE_VERSION }}"
         #Variables al nivel del step, es decir que se pueden usar en ese step
       - name: Build
         run: npm run build
         env:
           APP_VERSION: '2.0.0'
-
       
+
+# Sin la 13 a la 16 y todo debajo de jobs
+#   runs-on: ubuntu-latest  #define el sistema operativo donde se ejecutará el job, el ubuntu latest es la última versión de ubuntu disponible en GitHub Actions
+        
+#      steps:            #Son los pasos en orden secuencial
+#        - name: Checkout Code  #nombre legible del paso
+#          uses: actions/checkout@v4  #acción que permite hacer checkout del código fuente del repositorio
+#
+#        - name: Setup Node.js  #nombre legible del paso
+#          uses: actions/setup-node@v4  #acción que permite configurar Node.js en el runner
+#          with:
+#            node-version: '20'  #versión de Node.js específica a utilizar
+#
+#        - name: Install Dependencies #nombre legible del paso para instalar dependencias del pack age.json
+#          run: npm ci  #comando para instalar dependencias de Node.js
+#
+#        - name: Run Tests #nombre legible del paso para ejecutar los tests
+#          run: npm test  #comando para ejecutar los tests definidos en el package.json, es decir para que corran los tests de cron-ticker
+#      name: Run Test    #nombre legible que aparecerá en la UI de GitHub Actions   
