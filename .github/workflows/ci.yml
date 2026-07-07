@@ -12,7 +12,7 @@ on:                     #eventos que dispara el workflow en push y pull request
 
 #Variables a nivel del workflow, es decir que se pueden usar en todos los jobs y steps del workflow
 env:
-  NODE_VEERSION: "20"
+  NODE_VERSION: "20"
   APP_NAME: "cron-ticker"
   
 jobs:                 #Acá van todos los jobs, es decir es la definición de los jobs que se ejecutarán en el workflow
@@ -29,7 +29,7 @@ jobs:                 #Acá van todos los jobs, es decir es la definición de lo
 
       - name: Show Variables
         run: |
-          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VEERSION }}"
+          echo "App: ${{ env.APP_NAME }}, Node: ${{ env.NODE_VERSION }}"
 
       - name: Show Github Variables
         run: |
@@ -39,6 +39,12 @@ jobs:                 #Acá van todos los jobs, es decir es la definición de lo
       - name: Show Node Version
         run: |
           echo "Node Version: ${{ vars.APP_NODE_VERSION }}"
+
+
+      - name: Deploy API
+        run: |
+          echo "Deploying API with key ${{ secrets.API_KEY }}..."
+          
         #Variables al nivel del step, es decir que se pueden usar en ese step
       - name: Build
         run: npm run build
